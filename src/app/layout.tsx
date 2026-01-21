@@ -44,6 +44,7 @@ export const metadata: Metadata = {
   },
   other: {
     "fc:frame": JSON.stringify(frame),
+    "base:app_id": "6970deda5f24b57cc50d3313",
   },
 };
 
