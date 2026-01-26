@@ -53,5 +53,3 @@ export const SUPPORTED_VAULTS: VaultInfo[] = [
 
 export const FALLBACK_TOKEN_ICON =
   "https://etherscan.io/images/main/empty-token.png";
-
-export const BASE_URL = "/api/alchemy";

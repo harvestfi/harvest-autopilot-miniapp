@@ -3,7 +3,6 @@ import { base } from "wagmi/chains";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import farcasterFrame from "@farcaster/frame-wagmi-connector";
 import { injected } from "wagmi/connectors";
-import { BASE_URL } from "~/constants";
 
 // Initialize connectors
 const frameConnector = farcasterFrame();
@@ -11,10 +10,12 @@ const injectedConnector = injected({
   shimDisconnect: true,
 });
 
+const RPC_URL = process.env.NEXT_PUBLIC_RPC_URL || "https://mainnet.base.org";
+
 export const config = createConfig({
   chains: [base],
   transports: {
-    [base.id]: http(`${BASE_URL}`),
+    [base.id]: http(`${RPC_URL}`),
   },
   connectors: [frameConnector, injectedConnector],
   syncConnectedChain: true, // Ensure chain syncing

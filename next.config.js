@@ -59,8 +59,8 @@ const nextConfig = {
                 https://wallet.farcaster.xyz/*
                 https://*.farcaster.xyz/*
                 https://*.warpcast.com/*
-                https://base-mainnet.g.alchemy.com/*
-                https://*.alchemy.com/*;
+                https://base-mainnet.g.alchemy.com
+                https://*.alchemy.com;
               script-src 'self' 'unsafe-eval' 'unsafe-inline' https://wallet.farcaster.xyz https://client.warpcast.com;
               style-src 'self' 'unsafe-inline';
               img-src 'self' data: https: blob:;

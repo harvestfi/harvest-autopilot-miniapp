@@ -26,8 +26,8 @@ export function middleware(request: NextRequest) {
       https://*.walletconnect.org 
       https://*.base.org 
       https://mainnet.base.org
-      https://base-mainnet.g.alchemy.com/*
-      https://*.alchemy.com/*
+      https://base-mainnet.g.alchemy.com
+      https://*.alchemy.com
       https://1rpc.io 
       wss://*.base.org 
       ws://*.base.org 
