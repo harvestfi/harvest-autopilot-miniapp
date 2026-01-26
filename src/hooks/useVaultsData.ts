@@ -9,6 +9,7 @@ interface HarvestVaultData {
   usdPrice?: string; // Token price in USD
   sharePrice?: string; // Vault share price
   pricePerFullShare?: string; // Alternative field that might be available
+  decimals?: number; // Vault decimals for price calculation
 }
 
 interface VaultsData {

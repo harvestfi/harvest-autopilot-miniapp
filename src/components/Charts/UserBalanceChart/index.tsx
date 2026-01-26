@@ -42,7 +42,8 @@ export default function UserBalanceChart({
   // Get current vault data
   const currentVaultData = useMemo(() => {
     if (vaultsData && vaultId) {
-      return vaultsData[vaultId] || null;
+      const result = vaultsData[vaultId] || null;
+      return result;
     }
     return null;
   }, [vaultsData, vaultId]);
@@ -69,11 +70,15 @@ export default function UserBalanceChart({
 
   // Extract share price from vault data
   const sharePrice = useMemo(() => {
-    if (currentVaultData && currentVaultData.sharePrice) {
-      return parseFloat(currentVaultData.sharePrice);
+    if (currentVaultData && currentVaultData.pricePerFullShare) {
+      const pricePerFullShare = parseFloat(currentVaultData.pricePerFullShare);
+      // Use decimals from vault data if available, otherwise use vaultDecimals prop
+      const decimals = currentVaultData.decimals ?? vaultDecimals;
+      // Divide pricePerFullShare by 10^decimals to get the actual share price
+      return pricePerFullShare / Math.pow(10, decimals);
     }
     return 1; // Default fallback share price
-  }, [currentVaultData]);
+  }, [currentVaultData, vaultDecimals]);
 
   useEffect(() => {
     // Reset data when vault address changes
