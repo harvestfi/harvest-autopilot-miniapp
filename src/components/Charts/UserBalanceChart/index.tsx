@@ -67,6 +67,14 @@ export default function UserBalanceChart({
     return 1; // Default fallback price
   }, [currentVaultData]);
 
+  // Extract share price from vault data
+  const sharePrice = useMemo(() => {
+    if (currentVaultData && currentVaultData.sharePrice) {
+      return parseFloat(currentVaultData.sharePrice);
+    }
+    return 1; // Default fallback share price
+  }, [currentVaultData]);
+
   useEffect(() => {
     // Reset data when vault address changes
     if (vaultAddress) {
@@ -87,7 +95,7 @@ export default function UserBalanceChart({
       // Set date and content with latest value
       if (cachedData.balance?.length > 0) {
         const latestData = cachedData.balance[cachedData.balance.length - 1];
-        const latestUsdValue = latestData.value * tokenPrice;
+        const latestUsdValue = latestData.value * tokenPrice * sharePrice;
 
         setCurDate(new Date(latestData.timestamp).toLocaleDateString());
         setCurTokenValue(formatBalance(latestData.value.toString()));
@@ -134,7 +142,7 @@ export default function UserBalanceChart({
           if (balanceData.balance.length > 0) {
             const latestData =
               balanceData.balance[balanceData.balance.length - 1];
-            const latestUsdValue = latestData.value * tokenPrice;
+            const latestUsdValue = latestData.value * tokenPrice * sharePrice;
 
             setCurDate(new Date(latestData.timestamp).toLocaleDateString());
             setCurTokenValue(formatBalance(latestData.value.toString()));
@@ -160,6 +168,7 @@ export default function UserBalanceChart({
     chainId,
     vaultDecimals,
     tokenPrice,
+    sharePrice,
     cachedData,
     externalLoading,
   ]);
@@ -218,8 +227,8 @@ export default function UserBalanceChart({
         const tokenValue = tokenPayload.value;
         setCurTokenValue(formatBalance(tokenValue.toString()));
 
-        // Calculate USD value using token price
-        const usdValue = tokenValue * tokenPrice;
+        // Calculate USD value using token price and share price
+        const usdValue = tokenValue * tokenPrice * sharePrice;
         setCurUsdValue(`$${Number(usdValue).toFixed(2)}`);
       }
     }
@@ -232,8 +241,8 @@ export default function UserBalanceChart({
       setCurDate(new Date(latestData.timestamp).toLocaleDateString());
       setCurTokenValue(formatBalance(latestData.value.toString()));
 
-      // Calculate USD value using token price
-      const usdValue = latestData.value * tokenPrice;
+      // Calculate USD value using token price and share price
+      const usdValue = latestData.value * tokenPrice * sharePrice;
       setCurUsdValue(`$${Number(usdValue).toFixed(2)}`);
     }
   };
@@ -313,8 +322,8 @@ export default function UserBalanceChart({
     // Get the token value
     const tokenValue = item.value;
 
-    // Calculate USD value using token price
-    const usdValue = tokenValue * tokenPrice;
+    // Calculate USD value using token price and share price
+    const usdValue = tokenValue * tokenPrice * sharePrice;
 
     return {
       timestamp: item.timestamp,
